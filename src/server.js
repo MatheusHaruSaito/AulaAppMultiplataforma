@@ -1,23 +1,15 @@
 import express, {json} from "express"
-import mysql from "mysql2/promise"
-
+import {pool} from "./databases/mysqlDb.js"
 const Port = 3500;
 const app = express();
-const connection = await mysql.createPool({
-    host:'localhost',
-    user:'root',
-    port: 3306,
-    password: '',
-    database:'apirest',
-})  
 
-// console.log(connection.getConnection())
+
 app.use( json());
 
 
 app.get("/users", async (req,res)=>{
     try{
-    const [result,fields] = await connection.execute("Select * From users")
+    const [result,fields] = await pool.execute("Select * From users")
     res.status(200).json(result)
     }
     catch (err){
@@ -32,7 +24,7 @@ app.get("/test",(req,res)=>{
 });
 
 app.listen(Port, ()=>{
-    console.log(connection.getConnection())
+
     console.log(`Servidor rodando na porta: ${Port}\n CTRL+C para o servidor`)
 })
 
