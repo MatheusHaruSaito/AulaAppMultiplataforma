@@ -1,9 +1,10 @@
-const express = require("express")
+import express, {json} from "express"
 
 const Port = 3500;
 const app = express();
 
-app.use( express.json());
+app.use( json());
+
 
 app.get("/test",(req,res)=>{
     res.status(200).json({"message": "servidor funcionando"})
