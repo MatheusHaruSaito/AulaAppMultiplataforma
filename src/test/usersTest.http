@@ -1,0 +1,38 @@
+@host = http://localhost
+@port = 3100
+@endpoint = users
+
+@url = {{host}}:{{port}}/{{endpoint}} 
+
+###
+GET {{url}}
+
+###
+# getById
+GET {{url}}/2
+
+###
+# inclui novos registros
+POST  {{url}}
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": 3,
+    "login": "teste.teste",
+    "password": "123",
+    "online": false
+}
+
+###
+
+PUT  {{url}}/3
+Content-Type: application/json; charset=utf-8
+
+{
+    "login": "teste.teste",
+    "password": "123-456",
+    "online": true
+}
+
+###
+DELETE  {{url}}/3
