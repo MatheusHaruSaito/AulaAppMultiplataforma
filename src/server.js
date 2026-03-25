@@ -1,23 +1,14 @@
 import express, {json} from "express"
-import {pool} from "./databases/mysqlDb.js"
+import {testConnection} from "./databases/connectionMysql.js"
+import userRoutes from "./view/userRoutes.js"
+
 const Port = 3500;
 const app = express();
 
-
+testConnection();
 app.use( json());
+app.use(userRoutes);
 
-
-app.get("/users", async (req,res)=>{
-    try{
-    const [result,fields] = await pool.execute("Select * From users")
-    res.status(200).json(result)
-    }
-    catch (err){
-        console.log(err)
-        res.status(403).json(err)
-    }
-
-})
 
 app.get("/test",(req,res)=>{
     res.status(200).json({"message": "servidor funcionando"})
